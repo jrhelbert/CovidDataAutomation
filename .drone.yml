@@ -1,0 +1,76 @@
+kind: pipeline
+type: docker
+name: default
+
+trigger:
+  branch:
+    exclude:
+    - data
+
+steps:
+
+- name: selenium
+  image: selenium/standalone-chrome
+  detach: true
+
+- name: prepData
+  image: mpouls/pytesseract:cpu
+  commands:
+  - pip install selenium requests
+  - pip install pdfreader
+  - python fetchDataFiles.py
+  - python stripData.py
+
+- name: merge
+  image: docker:git
+  when:
+    branch: [master]
+  commands:
+  - git add -A
+  - git commit -a -m "`date +'%Y-%m-%d'`"
+  - git fetch origin data:data
+  - git checkout data
+  - git merge --strategy-option theirs master  
+
+- name: push
+  image: appleboy/drone-git-push
+  when:
+    branch: [master]
+  settings:
+    ssh_key:
+      from_secret: ssh_key
+    remote_name: origin2
+    remote: git@github.com:2edcovid/CovidDataAutomation.git
+    branch: data
+    local_ref: data
+
+- name: imgurPost
+  image: python:3
+  when:
+    branch: [master]
+  environment:
+    APIKEY:
+      from_secret: imgur_key
+  commands:
+  - pip install selenium requests
+  - python prepImgurPost.py
+  - python imgurPost.py
+    
+- name: redditPost
+  image: python:3
+  when:
+    branch: [master]
+  environment:
+    APIKEY:
+      from_secret: reddit_secret
+    APIID:
+      from_secret: reddit_client
+    APIPWD:
+      from_secret: reddit_pwd
+    SSHKEY:
+      from_secret: gsheet_ssh_key
+  commands:
+  - pip install praw
+  - pip install pygsheets pandas tabulate
+  - python gsheetInteraction.py
+  - python redditPost.py

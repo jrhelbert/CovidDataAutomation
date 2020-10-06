@@ -1,0 +1,3 @@
+FROM mpouls/pytesseract:cpu
+
+RUN pip install selenium requests pdfreader praw pygsheets pandas tabulate

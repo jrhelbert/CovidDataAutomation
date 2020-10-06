@@ -1,0 +1,34 @@
+version: "3.8"
+
+x-build-python: &build-python
+  build:
+    context: ./docker
+    dockerfile: Dockerfile_python
+  working_dir: /tmp
+  volumes:
+    - ./:/tmp
+
+services:
+  selenium:
+    build:
+      context: ./docker
+      dockerfile: Dockerfile_selenium
+
+  fetch:
+    <<: *build-python
+    command: python fetchDataFiles.py
+  strip:
+    <<: *build-python
+    command: python stripData.py
+  maps:
+    <<: *build-python
+    command: python prepImgurPost.py
+  imgur:
+    <<: *build-python
+    command: python imgurPost.py
+  gsheet:
+    <<: *build-python
+    command: python gsheetInteraction.py
+  reddit:
+    <<: *build-python
+    command: python redditPost.py
