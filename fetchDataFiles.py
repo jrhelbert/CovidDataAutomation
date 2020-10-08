@@ -116,12 +116,14 @@ def getLTC():
 
 def getRMCCData():
   browser = getBrowser(urls.rmccPage, height=3300)
+  time.sleep(20)
   saveScreenshot(browser, fileNames.rmccScreenshot)
   closeBrowser(browser)
 
 
 def getSerologyData():
   browser = getBrowser(urls.serologyPage, zoom=80, height=400)
+  time.sleep(20)
   saveScreenshot(browser, fileNames.serologyScreenshot)
   closeBrowser(browser)
 
