@@ -68,7 +68,7 @@ def postDebug():
   url = "https://imgur.com/a/{}".format(album['id'])
   print(url)
 
-if postTime.shouldPost():
-  postDebug()
-  postCountyMaps()
+
+postDebug()
+postCountyMaps()
   
