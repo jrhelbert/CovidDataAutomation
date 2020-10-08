@@ -44,11 +44,6 @@ reddit = praw.Reddit(client_id=clientID, client_secret=secret,
                      username=userName)
 reddit.validate_on_submit = True
 
-sub = "Iowa"
-if local:
-  sub = "test"
 
-day = time.strftime('%a')
-if postTime.shouldPost() or local:
-    post(reddit, sub)
+post(reddit, "test")
 
