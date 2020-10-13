@@ -16,6 +16,8 @@ def post(reddit, sub='Iowa'):
     title = f.read()
   os.remove(fileNames.redditTitle)
   url = reddit.subreddit(sub).submit_image(title, fileNames.mapScreenshot)
+  print(sub)
+  print(url)
   os.remove(fileNames.mapScreenshot)
 
   submission = reddit.submission(url="https://www.reddit.com/comments/{}".format(url))
@@ -44,11 +46,12 @@ reddit = praw.Reddit(client_id=clientID, client_secret=secret,
                      username=userName)
 reddit.validate_on_submit = True
 
-sub = "Iowa"
-# if local:
-#   sub = "test"
+if postTime.shouldPost() or local:
+  sub = "test"
+else:
+  sub = "Iowa"
+
 
 day = time.strftime('%a')
-if postTime.shouldPost() or local:
-    post(reddit, sub)
+post(reddit, sub)
 
