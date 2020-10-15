@@ -7,6 +7,7 @@
 ### My Tracking
 - [My County Maps](https://2edcovid.github.io/IowaCovidDataMap/)
 - [My Data Sheets](https://docs.google.com/spreadsheets/d/1AbV2twmELM7oyf5z_osyN5XdHb0nxoYCC3Qnsv2Pk7Q/edit?usp=sharing)
+- [Buy me a beer if you must](https://imgur.com/a/8XuXkxY)
 
 
 ### Other Tracking Projects
