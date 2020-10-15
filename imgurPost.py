@@ -49,17 +49,6 @@ def upload_images(album_title, paths):
   return album
 
 
-def postCountyMaps():
-  title = "{} Iowa COVID19 County Data".format(time.strftime("%m/%d"))
-  fileList = glob.glob("*.png")
-  if (len(fileList)):
-    album = upload_images(title, fileList)
-    url = "## [Maps](https://imgur.com/a/{})".format(album['id'])
-    print(url)
-    with open(fileNames.imgurComment, 'w') as f:
-      f.write(url)
-
-
 def postDebug():
   print('Debug Screenshots')
   title = "{} Iowa COVID19 Debug Screenshots".format(time.strftime("%m/%d"))
@@ -70,5 +59,4 @@ def postDebug():
 
 if postTime.shouldPost():
   postDebug()
-  postCountyMaps()
   
