@@ -52,8 +52,7 @@ steps:
     APIKEY:
       from_secret: imgur_key
   commands:
-  - pip install selenium requests
-  - python prepImgurPost.py
+  - pip install requests
   - python imgurPost.py
     
 - name: redditPost

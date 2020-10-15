@@ -16,8 +16,7 @@ def post(reddit, sub='Iowa'):
     title = f.read()
   os.remove(fileNames.redditTitle)
   url = reddit.subreddit(sub).submit_image(title, fileNames.mapScreenshot)
-  print(sub)
-  print(url)
+  print('https://www.reddit.com/r/{}/comments/{}'.format(sub, url))
   os.remove(fileNames.mapScreenshot)
 
   submission = reddit.submission(url="https://www.reddit.com/comments/{}".format(url))
