@@ -5,6 +5,7 @@ import csv
 import json
 import stripData
 import glob
+import re
 
 months = [7, 8]
 days = [1,5]
@@ -20,7 +21,6 @@ def genCSV():
       dates = date.split("-")
 
       if int(dates[1]) == months[0] or (int(dates[1]) == months[1] and int(dates[2]) <= days[1]):
-        # geojsonfiles.append(file)
         summaryFile = "Summary{} 1608.csv".format(date)
         rows = []
         with open (os.path.join('historical', file), 'r') as f:
@@ -43,9 +43,18 @@ def genCSV():
           writer.writerows(rows)
 
 def genGeoJson():
+  list_of_pdfs = glob.glob(os.path.join('historical', '*.pdf'))
+
   list_of_files = glob.glob(os.path.join('historical', '*.csv'))
   for csv_file in list_of_files:
-    stripData.createGeoJson(csv_file, None)
+    hospitalData = None
+    dateRegex = r"historical\\Summary(2020\-\d\d\-\d\d)\ \d\d\d\d\.csv"
+    result = re.match(dateRegex, csv_file)
+    
+    list_of_pdfs = glob.glob(os.path.join('historical', 'countyHospital{} *.pdf').format(result.group(1)))
+    if len(list_of_pdfs):
+      hospitalData = stripData.readPDF(list_of_pdfs[0])
+    stripData.createGeoJson(csv_file, hospitalData)
 
 
 genGeoJson()
