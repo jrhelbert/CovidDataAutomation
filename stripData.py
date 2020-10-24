@@ -1,5 +1,9 @@
-import cv2
-import pytesseract
+try:
+  import cv2
+  import pytesseract
+except:
+  pass
+
 import re
 import csv
 import json
@@ -348,61 +352,61 @@ def getLTCData(local):
 
   return data
 
+if __name__ == "__main__":
+  local = 'DRONE_SYSTEM_HOST' not in os.environ
 
-local = 'DRONE_SYSTEM_HOST' not in os.environ
-
-data = {}
-
-
-try:
-    data.update(getSummaryData(local))
-except:
-    print('issue getting summary')
-try:
-    data.update(getSerologyData(local))
-except:
-    print('issue getting serology')
-try:
-    data.update(getRMCCData(local))
-except:
-    print('issue getting rmcc')
-try:
-    data.update(getDeathData(local))
-except:
-    print('issue getting deaths')
-try:
-    data.update(getRecoveryData(local))
-except:
-    print('issue getting recovery')
-try:
-    data.update(getLTCData(local))
-except:
-    print('issue getting LTC')
-
-try:
-    data.update(getCaseData(local))
-except:
-    print('issue getting cases')
+  data = {}
 
 
+  try:
+      data.update(getSummaryData(local))
+  except:
+      print('issue getting summary')
+  try:
+      data.update(getSerologyData(local))
+  except:
+      print('issue getting serology')
+  try:
+      data.update(getRMCCData(local))
+  except:
+      print('issue getting rmcc')
+  try:
+      data.update(getDeathData(local))
+  except:
+      print('issue getting deaths')
+  try:
+      data.update(getRecoveryData(local))
+  except:
+      print('issue getting recovery')
+  try:
+      data.update(getLTCData(local))
+  except:
+      print('issue getting LTC')
 
-writeJson(fileNames.dailyJson, data)
+  try:
+      data.update(getCaseData(local))
+  except:
+      print('issue getting cases')
 
 
-list_of_pdfs = glob.glob(os.path.join(fileNames.storageDir, '*.pdf'))
-pdfFile = max(list_of_pdfs, key=os.path.getctime)
 
-hospitalData = None
-try:
-  hospitalData = readPDF(pdfFile)
-  print(hospitalData)
-except:
-  print('no hospital data')
+  writeJson(fileNames.dailyJson, data)
 
-if not local:
-  list_of_files = glob.glob(os.path.join(fileNames.storageDir, '*.csv'))
-  csvFile = max(list_of_files, key=os.path.getctime)
 
-  createGeoJson(csvFile, hospitalData)
+  list_of_pdfs = glob.glob(os.path.join(fileNames.storageDir, '*.pdf'))
+  pdfFile = max(list_of_pdfs, key=os.path.getctime)
 
-print(data)
+  hospitalData = None
+  try:
+    hospitalData = readPDF(pdfFile)
+    print(hospitalData)
+  except:
+    print('no hospital data')
+
+  if not local:
+    list_of_files = glob.glob(os.path.join(fileNames.storageDir, '*.csv'))
+    csvFile = max(list_of_files, key=os.path.getctime)
+
+    createGeoJson(csvFile, hospitalData)
+
+  print(data)
