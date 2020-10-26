@@ -38,19 +38,13 @@ def post(reddit, sub='Iowa'):
       os.remove(fileName)
 
 
-local = 'DRONE_SYSTEM_HOST' not in os.environ
-
 reddit = praw.Reddit(client_id=clientID, client_secret=secret,
                      password=pwd, user_agent=name,
                      username=userName)
 reddit.validate_on_submit = True
 
-if local:
-  sub = "test"
-elif postTime.shouldPost():
+if postTime.shouldPost():
   sub = "Iowa"
-
-
-day = time.strftime('%a')
-post(reddit, sub)
+  day = time.strftime('%a')
+  post(reddit, sub)
 

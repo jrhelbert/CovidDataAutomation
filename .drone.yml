@@ -44,17 +44,6 @@ steps:
     branch: data
     local_ref: data
 
-- name: imgurPost
-  image: python:3
-  when:
-    branch: [master]
-  environment:
-    APIKEY:
-      from_secret: imgur_key
-  commands:
-  - pip install requests
-  - python imgurPost.py
-    
 - name: redditPost
   image: python:3
   when:
@@ -73,3 +62,14 @@ steps:
   - pip install pygsheets pandas tabulate
   - python gsheetInteraction.py
   - python redditPost.py
+
+- name: imgurPost
+  image: python:3
+  when:
+    branch: [master]
+  environment:
+    APIKEY:
+      from_secret: imgur_key
+  commands:
+  - pip install requests
+  - python imgurPost.py
