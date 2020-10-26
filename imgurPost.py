@@ -58,5 +58,8 @@ def postDebug():
   print(url)
 
 if postTime.shouldPost():
-  postDebug()
+  try:
+    postDebug()
+  except:
+    print('something wrong with imgur')
   
