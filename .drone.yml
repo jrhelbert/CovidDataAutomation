@@ -18,6 +18,7 @@ steps:
   commands:
   - pip install selenium requests
   - pip install pdfreader
+  - pip install gitpython
   - python fetchDataFiles.py
   - python stripData.py
 
