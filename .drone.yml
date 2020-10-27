@@ -20,6 +20,8 @@ steps:
   - pip install selenium requests
   - pip install pdfreader
   - pip install gitpython
+  - git checkout data
+  - git checkout master
   - python fetchDataFiles.py
   - python stripData.py
 
