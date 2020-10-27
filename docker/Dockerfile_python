@@ -1,3 +1,4 @@
 FROM mpouls/pytesseract:cpu
 
-RUN pip install selenium requests pdfreader praw pygsheets pandas tabulate
+RUN apt-get update && apt-get install -y git
+RUN pip install selenium requests pdfreader praw pygsheets pandas tabulate gitpython

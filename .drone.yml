@@ -16,8 +16,13 @@ steps:
 - name: prepData
   image: mpouls/pytesseract:cpu
   commands:
+  - apt-get update && apt-get install -y git
   - pip install selenium requests
   - pip install pdfreader
+  - pip install gitpython
+  - git fetch origin data:data
+  - git checkout data
+  - git checkout master
   - python fetchDataFiles.py
   - python stripData.py
 

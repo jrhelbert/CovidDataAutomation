@@ -10,7 +10,7 @@ import json
 import os
 import glob
 import fileNames
-
+import commitChecker
 
 import logging
 logging.basicConfig(level=logging.CRITICAL)
@@ -356,58 +356,59 @@ def getLTCData(local):
 if __name__ == "__main__":
   local = 'DRONE_SYSTEM_HOST' not in os.environ
 
-  data = {}
+
+  if commitChecker.stillNeedTodaysData():
+    data = {}
+
+    try:
+        data.update(getSummaryData(local))
+    except:
+        print('issue getting summary')
+    try:
+        data.update(getSerologyData(local))
+    except:
+        print('issue getting serology')
+    try:
+        data.update(getRMCCData(local))
+    except:
+        print('issue getting rmcc')
+    try:
+        data.update(getDeathData(local))
+    except:
+        print('issue getting deaths')
+    try:
+        data.update(getRecoveryData(local))
+    except:
+        print('issue getting recovery')
+    try:
+        data.update(getLTCData(local))
+    except:
+        print('issue getting LTC')
+
+    try:
+        data.update(getCaseData(local))
+    except:
+        print('issue getting cases')
 
 
-  try:
-      data.update(getSummaryData(local))
-  except:
-      print('issue getting summary')
-  try:
-      data.update(getSerologyData(local))
-  except:
-      print('issue getting serology')
-  try:
-      data.update(getRMCCData(local))
-  except:
-      print('issue getting rmcc')
-  try:
-      data.update(getDeathData(local))
-  except:
-      print('issue getting deaths')
-  try:
-      data.update(getRecoveryData(local))
-  except:
-      print('issue getting recovery')
-  try:
-      data.update(getLTCData(local))
-  except:
-      print('issue getting LTC')
 
-  try:
-      data.update(getCaseData(local))
-  except:
-      print('issue getting cases')
+    writeJson(fileNames.dailyJson, data)
 
 
+    list_of_pdfs = glob.glob(os.path.join(fileNames.storageDir, '*.pdf'))
+    pdfFile = max(list_of_pdfs, key=os.path.getctime)
 
-  writeJson(fileNames.dailyJson, data)
+    hospitalData = None
+    try:
+      hospitalData = readPDF(pdfFile)
+      print(hospitalData)
+    except:
+      print('no hospital data')
 
+    if not local:
+      list_of_files = glob.glob(os.path.join(fileNames.storageDir, '*.csv'))
+      csvFile = max(list_of_files, key=os.path.getctime)
 
-  list_of_pdfs = glob.glob(os.path.join(fileNames.storageDir, '*.pdf'))
-  pdfFile = max(list_of_pdfs, key=os.path.getctime)
+      createGeoJson(csvFile, hospitalData)
 
-  hospitalData = None
-  try:
-    hospitalData = readPDF(pdfFile)
-    print(hospitalData)
-  except:
-    print('no hospital data')
-
-  if not local:
-    list_of_files = glob.glob(os.path.join(fileNames.storageDir, '*.csv'))
-    csvFile = max(list_of_files, key=os.path.getctime)
-
-    createGeoJson(csvFile, hospitalData)
-
-  print(data)
+    print(data)
