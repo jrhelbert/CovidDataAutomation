@@ -4,6 +4,7 @@ from seleniumUtils import *
 import requests
 import fileNames
 import urls
+import commitChecker
 
 
 def getHospitalData(local=False):
@@ -134,12 +135,14 @@ if not local:
   getGeoJSON()
   # print(getAccessVals())
   
-getSummary(local)
-getCases()
-getRecovery()
-getDeaths()
-getLTC()
-getOriginalMap()
-getRMCCData()
-getSerologyData()
-getHospitalData()
+
+if commitChecker.stillNeedTodaysData():
+  getSummary(local)
+  getCases()
+  getRecovery()
+  getDeaths()
+  getLTC()
+  getOriginalMap()
+  getRMCCData()
+  getSerologyData()
+  getHospitalData()
