@@ -55,7 +55,7 @@ def prepRedditPost(sh):
     'Percentages' : 'G32',
     '7 Day Rolling' : 'J32',
     'Rates' : 'H32',
-    'Month Summaries' : 'I61',
+    'Month Summaries' : 'J61',
     'Totals' : 'H32',
     'Testing Totals' : 'I32',
     'Testing Breakdown' : 'I32',
