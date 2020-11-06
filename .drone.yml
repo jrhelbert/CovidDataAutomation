@@ -14,15 +14,9 @@ steps:
   detach: true
 
 - name: prepData
-  image: mpouls/pytesseract:cpu
+  image: 2edcovid/python_data_scraping:latest
   commands:
-  - apt-get update && apt-get install -y git
-  - pip install selenium requests
-  - pip install pdfreader
-  - pip install gitpython
   - git fetch origin data:data
-  - git checkout data
-  - git checkout master
   - python fetchDataFiles.py
   - python stripData.py
 
@@ -50,7 +44,7 @@ steps:
     local_ref: data
 
 - name: redditPost
-  image: python:3
+  image: 2edcovid/python_data_scraping:latest
   when:
     branch: [master]
   environment:
@@ -62,22 +56,12 @@ steps:
       from_secret: reddit_pwd
     SSHKEY:
       from_secret: gsheet_ssh_key
+    IMGUR_APIKEY:
+        from_secret: imgur_key
   commands:
-  - pip install praw
-  - pip install pygsheets pandas tabulate
   - python gsheetInteraction.py
   - python redditPost.py
-
-- name: imgurPost
-  image: python:3
-  when:
-    branch: [master]
-  environment:
-    APIKEY:
-      from_secret: imgur_key
-  commands:
-  - pip install requests
   - python imgurPost.py
 
-  image_pull_secrets:
-    - dockerconfig
+image_pull_secrets:
+  - dockerconfig
