@@ -78,3 +78,6 @@ steps:
   commands:
   - pip install requests
   - python imgurPost.py
+
+  image_pull_secrets:
+    - dockerconfig
