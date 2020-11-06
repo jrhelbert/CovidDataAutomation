@@ -21,14 +21,6 @@ def post(reddit, sub='Iowa'):
 
   submission = reddit.submission(url="https://www.reddit.com/comments/{}".format(url))
 
-  try:
-    with open(fileNames.imgurComment, 'r') as f:
-      imgurURL = f.read()
-      submission.reply(imgurURL)
-    os.remove(fileNames.imgurComment)
-  except:
-    print('no imgur link')
-
   fileList = glob.glob("*.md")
   for fileName in fileList:
     if fileName != 'README.md' and fileName != fileNames.redditTitle:

@@ -9,7 +9,7 @@ from base64 import b64encode
 
 
 def upload_images(album_title, paths):
-  client_secret = os.environ['APIKEY']
+  client_secret = os.environ['IMGUR_APIKEY']
   client_id = '8d534890d5e8bae'
 
   albumURL = "https://api.imgur.com/3/album.json"
