@@ -17,3 +17,25 @@ def stillNeedTodaysData():
 
   return needIt
 
+
+def commitAndMerge():
+  repo = Repo(os.getcwd())
+  origin = repo.remotes.origin
+  origin.fetch()
+
+  current_time = time.strftime("%Y-%m-%d")
+  repo.index.add(repo.untracked_files)
+  repo.git.add(update=True)
+  repo.index.commit(current_time)
+
+  master = repo.heads.master
+  data = repo.heads.data
+  data.checkout()
+  base = repo.merge_base(master, "--strategy-option theirs")
+  repo.index.merge_tree(master, base=base)
+  repo.index.commit("Merge 'master' into data", 
+    parent_commits=(data.commit, master.commit))
+
+
+if __name__ == "__main__":
+  commitAndMerge()
