@@ -33,7 +33,7 @@ steps:
     branch: data
     local_ref: data
 
-- name: redditPost
+- name: postData
   image: 2edcovid/python_data_scraping:latest
   when:
     branch: [master]
