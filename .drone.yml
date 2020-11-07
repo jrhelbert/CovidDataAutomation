@@ -19,17 +19,7 @@ steps:
   - git fetch origin data:data
   - python fetchDataFiles.py
   - python stripData.py
-
-- name: merge
-  image: docker:git
-  when:
-    branch: [master]
-  commands:
-  - git add -A
-  - git commit -a -m "`date +'%Y-%m-%d'`"
-  - git fetch origin data:data
-  - git checkout data
-  - git merge --strategy-option theirs master  
+  - python commitChecker.py
 
 - name: push
   image: appleboy/drone-git-push
@@ -43,7 +33,7 @@ steps:
     branch: data
     local_ref: data
 
-- name: redditPost
+- name: postData
   image: 2edcovid/python_data_scraping:latest
   when:
     branch: [master]
@@ -57,7 +47,7 @@ steps:
     SSHKEY:
       from_secret: gsheet_ssh_key
     IMGUR_APIKEY:
-        from_secret: imgur_key
+      from_secret: imgur_key
   commands:
   - python gsheetInteraction.py
   - python redditPost.py

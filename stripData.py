@@ -37,7 +37,6 @@ def createGeoJson(localCsvFile, hospitalData, removePending=False):
     countyData = {}
     data = {}
     date = (localCsvFile.split('.csv')[0].split()[0].split('Summary')[1])
-    print(localCsvFile)
     with open(localCsvFile) as csvFile:
         csvReader = csv.DictReader(csvFile)
         for row in csvReader:

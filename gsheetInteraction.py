@@ -79,8 +79,10 @@ def prepRedditPost(sh):
   wks = sh[1]
   newCases = wks.get_value('C2')
   newDeaths = wks.get_value('F2')
-  newRecovered = wks.get_value('G2')
-  redditPostTitle = "{} as of 11:00am: {} New Cases, {} New Deaths, {} New Recovered.".format(time.strftime('%a. %m/%d'), newCases, newDeaths, newRecovered)
+
+  wks = sh[0]
+  currentHospitalized = wks.get_value('H2')
+  redditPostTitle = "{} as of 11:00am: {} New Cases, {} New Deaths, {} Currently Hospitalized.".format(time.strftime('%a. %m/%d'), newCases, newDeaths, currentHospitalized)
   print(redditPostTitle)
   with open(fileNames.redditTitle, 'w') as f:
     f.write(redditPostTitle)
