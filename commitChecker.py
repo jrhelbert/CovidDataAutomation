@@ -27,15 +27,10 @@ def commitAndMerge():
   repo.index.add(repo.untracked_files)
   repo.git.add(update=True)
   repo.index.commit(current_time)
+  data = repo.heads.data 
+  data.checkout() 
 
-  master = repo.heads.master
-  data = repo.heads.data
-  data.checkout()
-  base = repo.merge_base(master, "--strategy-option theirs")
-  repo.index.merge_tree(master, base=base)
-  repo.index.commit("Merge 'master' into data", 
-    parent_commits=(data.commit, master.commit))
-
+  os.system('git merge --strategy-option theirs master -m "Merge branch \'master\' into data"') 
 
 if __name__ == "__main__":
   commitAndMerge()
