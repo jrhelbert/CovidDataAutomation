@@ -353,7 +353,7 @@ def getLTCData(local):
   return data
 
 if __name__ == "__main__":
-  local = 'DRONE_SYSTEM_HOST' not in os.environ
+  local = False
 
 
   if commitChecker.stillNeedTodaysData():
