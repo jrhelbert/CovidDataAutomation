@@ -130,9 +130,9 @@ def getSerologyData():
 
 local = 'DRONE_SYSTEM_HOST' not in os.environ
 
-if not local:
-  time.sleep(30)
-  getGeoJSON()
+# if not local:
+time.sleep(30)
+getGeoJSON()
   # print(getAccessVals())
   
 
