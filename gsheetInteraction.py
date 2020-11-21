@@ -88,16 +88,15 @@ def prepRedditPost(sh):
     f.write(redditPostTitle)
 
 
-local = 'DRONE_SYSTEM_HOST' not in os.environ
+if __name__ == "__main__":
+  if not 'DRONE_SYSTEM_HOST' not in os.environ:
+    setupDroneAuth()
 
-if not local:
-  setupDroneAuth()
+  gc = pygsheets.authorize(service_file=filePath)
+  sh = gc.open('Covid19')
 
-gc = pygsheets.authorize(service_file=filePath)
-sh = gc.open('Covid19')
+  if postTime.shouldPost():
+    data = readData()
+    postData(sh, data)
 
-if not local and postTime.shouldPost():
-  data = readData()
-  postData(sh, data)
-
-prepRedditPost(sh)
+  prepRedditPost(sh)
