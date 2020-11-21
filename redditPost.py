@@ -35,8 +35,7 @@ reddit = praw.Reddit(client_id=clientID, client_secret=secret,
                      username=userName)
 reddit.validate_on_submit = True
 
-if postTime.shouldPost():
-  sub = "Iowa"
-  day = time.strftime('%a')
-  post(reddit, sub)
+if __name__ == "__main__":
+  if postTime.shouldPost():
+    post(reddit)
 

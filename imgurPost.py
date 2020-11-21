@@ -50,16 +50,19 @@ def upload_images(album_title, paths):
 
 
 def postDebug():
-  print('Debug Screenshots')
-  title = "{} Iowa COVID19 Debug Screenshots".format(time.strftime("%m/%d"))
-  fileList = glob.glob("Screenshot_*")
-  album = upload_images(title, fileList)
-  url = "https://imgur.com/a/{}".format(album['id'])
-  print(url)
-
-if postTime.shouldPost():
   try:
-    postDebug()
+    print('Debug Screenshots')
+    title = "{} Iowa COVID19 Debug Screenshots".format(time.strftime("%m/%d"))
+    fileList = glob.glob("Screenshot_*")
+    album = upload_images(title, fileList)
+    url = "https://imgur.com/a/{}".format(album['id'])
+    print(url)
   except:
     print('something wrong with imgur')
+
+
+if __name__ == "__main__":
+  if postTime.shouldPost():
+    postDebug()
+  
   

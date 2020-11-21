@@ -13,30 +13,8 @@ steps:
   image: selenium/standalone-chrome
   detach: true
 
-- name: prepData
+- name: getData
   image: 2edcovid/python_data_scraping:latest
-  commands:
-  - git fetch origin data:data
-  - python fetchDataFiles.py
-  - python stripData.py
-  - python commitChecker.py
-
-- name: push
-  image: appleboy/drone-git-push
-  when:
-    branch: [master]
-  settings:
-    ssh_key:
-      from_secret: ssh_key
-    remote_name: origin2
-    remote: git@github.com:2edcovid/CovidDataAutomation.git
-    branch: data
-    local_ref: data
-
-- name: postData
-  image: 2edcovid/python_data_scraping:latest
-  when:
-    branch: [master]
   environment:
     APIKEY:
       from_secret: reddit_secret
@@ -49,9 +27,26 @@ steps:
     IMGUR_APIKEY:
       from_secret: imgur_key
   commands:
+  - git fetch origin data:data
+  - python fetchDataFiles.py
+  - python stripData.py
   - python gsheetInteraction.py
   - python redditPost.py
   - python imgurPost.py
+  - python commitChecker.py
+
+- name: pushData
+  image: appleboy/drone-git-push
+  when:
+    branch: [master]
+  settings:
+    ssh_key:
+      from_secret: ssh_key
+    remote_name: origin2
+    remote: git@github.com:2edcovid/CovidDataAutomation.git
+    branch: data
+    local_ref: data
+
 
 image_pull_secrets:
   - dockerconfig

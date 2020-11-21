@@ -7,7 +7,7 @@ import urls
 import commitChecker
 
 
-def getHospitalData(local=False):
+def getHospitalData():
     filePath = None
 
     browser = getBrowser(urls.mainPage, height=1700, zoom=90)
@@ -36,7 +36,7 @@ def getHospitalData(local=False):
     return filePath
 
 
-def getSummary(local=False):
+def getSummary():
     browser = getBrowser(urls.summaryPage, height=1700, zoom=90)
     time.sleep(20)
     saveScreenshot(browser, fileNames.summaryScreenshot)
@@ -51,9 +51,6 @@ def getSummary(local=False):
     timeString = time.strftime("%Y-%m-%d %H%M")
     localPath = fileNames.storageSummaryFormat.format(timeString)
     saveDownloadFile(browser, fileNames.storageDir, localPath)
-
-    if local:
-      os.remove(localPath)
 
     closeBrowser(browser)
 
@@ -128,21 +125,22 @@ def getSerologyData():
   saveScreenshot(browser, fileNames.serologyScreenshot)
   closeBrowser(browser)
 
-local = 'DRONE_SYSTEM_HOST' not in os.environ
 
-# if not local:
-time.sleep(30)
-getGeoJSON()
-  # print(getAccessVals())
-  
 
-if commitChecker.stillNeedTodaysData():
-  getSummary(local)
-  getCases()
-  getRecovery()
-  getDeaths()
-  getLTC()
-  getOriginalMap()
-  getRMCCData()
-  getSerologyData()
-  getHospitalData()
+if __name__ == "__main__":
+
+  if commitChecker.stillNeedTodaysData():
+    if not 'DRONE_SYSTEM_HOST' not in os.environ:
+      time.sleep(30)
+      getGeoJSON()
+      # print(getAccessVals())
+
+    getSummary()
+    getCases()
+    getRecovery()
+    getDeaths()
+    getLTC()
+    getOriginalMap()
+    getRMCCData()
+    getSerologyData()
+    getHospitalData()
