@@ -1,101 +1,101 @@
 EventResidentCounty,Individuals Tested,Individuals Positive,Total Recovered,Total Deaths
-Adair County,140,6,2,0
-Appanoose County,232,8,2,3
-Boone County,1156,42,18,0
-Carroll County,402,8,5,0
-Clarke County,229,18,4,0
-Dallas County,3572,788,398,11
-Davis County,104,13,3,0
-Decatur County,150,0,0,0
-Greene County,252,13,9,0
-Guthrie County,322,38,15,2
-Jasper County,1548,249,178,13
-Lucas County,126,1,0,0
-Madison County,313,16,9,1
-Mahaska County,413,29,16,1
-Marion County,615,22,15,0
-Marshall County,2986,804,400,5
-Monroe County,157,22,3,1
-Polk County,15871,3001,1047,81
-Poweshiek County,444,86,58,8
-Ringgold County,88,0,0,0
-Story County,1580,79,56,1
-Tama County,1245,358,195,17
-Union County,248,2,1,0
-Warren County,1275,77,46,0
-Wayne County,76,1,1,0
-Butler County,324,14,12,0
-Cerro Gordo County,1444,18,12,0
-Chickasaw County,268,7,6,0
-Floyd County,553,11,2,1
-Franklin County,423,7,3,0
-Hancock County,261,5,2,0
-Hardin County,389,12,7,0
-Kossuth County,271,5,2,0
-Mitchell County,275,4,3,0
-Winnebago County,237,7,4,0
-Worth County,209,3,2,0
-Wright County,716,20,4,0
-Buena Vista County,834,113,14,0
-Calhoun County,193,1,0,0
-Cherokee County,256,9,4,0
-Clay County,252,9,8,0
-Dickinson County,235,6,6,0
-Emmet County,183,1,0,0
-Hamilton County,536,11,7,0
-Humboldt County,202,7,6,0
-Ida County,154,7,1,0
-Lyon County,209,19,16,0
-Monona County,243,15,12,0
-O'Brien County,308,22,9,0
-Osceola County,148,27,16,0
-Palo Alto County,118,2,1,0
-Plymouth County,678,86,45,0
-Pocahontas County,114,3,2,0
-Sac County,232,5,2,0
-Sioux County,720,139,40,0
-Webster County,1067,13,6,1
-Woodbury County,8454,2278,925,17
-Adams County,66,1,0,0
-Audubon County,125,11,6,1
-Cass County,228,2,1,0
-Crawford County,1141,384,148,1
-Fremont County,94,3,1,0
-Harrison County,316,18,17,0
-Mills County,341,12,5,0
-Montgomery County,195,5,4,0
-Page County,439,10,8,0
-Pottawattamie County,2060,170,72,2
-Shelby County,206,23,17,0
-Taylor County,128,2,1,0
-Cedar County,600,42,36,1
-Clinton County,1093,61,45,1
-Des Moines County,594,39,22,1
-Henry County,501,46,37,1
-Iowa County,481,29,23,0
-Jackson County,373,8,7,0
-Jefferson County,248,12,7,0
-Johnson County,5539,574,284,7
-Keokuk County,238,11,8,0
-Lee County,422,19,16,0
-Louisa County,938,310,195,3
-Muscatine County,2583,532,314,33
-Scott County,4478,309,261,8
+Adair,140,6,2,0
+Appanoose,232,8,2,3
+Boone,1156,42,18,0
+Carroll,402,8,5,0
+Clarke,229,18,4,0
+Dallas,3572,788,398,11
+Davis,104,13,3,0
+Decatur,150,0,0,0
+Greene,252,13,9,0
+Guthrie,322,38,15,2
+Jasper,1548,249,178,13
+Lucas,126,1,0,0
+Madison,313,16,9,1
+Mahaska,413,29,16,1
+Marion,615,22,15,0
+Marshall,2986,804,400,5
+Monroe,157,22,3,1
+Polk,15871,3001,1047,81
+Poweshiek,444,86,58,8
+Ringgold,88,0,0,0
+Story,1580,79,56,1
+Tama,1245,358,195,17
+Union,248,2,1,0
+Warren,1275,77,46,0
+Wayne,76,1,1,0
+Butler,324,14,12,0
+Cerro Gordo,1444,18,12,0
+Chickasaw,268,7,6,0
+Floyd,553,11,2,1
+Franklin,423,7,3,0
+Hancock,261,5,2,0
+Hardin,389,12,7,0
+Kossuth,271,5,2,0
+Mitchell,275,4,3,0
+Winnebago,237,7,4,0
+Worth,209,3,2,0
+Wright,716,20,4,0
+Buena Vista,834,113,14,0
+Calhoun,193,1,0,0
+Cherokee,256,9,4,0
+Clay,252,9,8,0
+Dickinson,235,6,6,0
+Emmet,183,1,0,0
+Hamilton,536,11,7,0
+Humboldt,202,7,6,0
+Ida,154,7,1,0
+Lyon,209,19,16,0
+Monona,243,15,12,0
+O'Brien,308,22,9,0
+Osceola,148,27,16,0
+Palo Alto,118,2,1,0
+Plymouth,678,86,45,0
+Pocahontas,114,3,2,0
+Sac,232,5,2,0
+Sioux,720,139,40,0
+Webster,1067,13,6,1
+Woodbury,8454,2278,925,17
+Adams,66,1,0,0
+Audubon,125,11,6,1
+Cass,228,2,1,0
+Crawford,1141,384,148,1
+Fremont,94,3,1,0
+Harrison,316,18,17,0
+Mills,341,12,5,0
+Montgomery,195,5,4,0
+Page,439,10,8,0
+Pottawattamie,2060,170,72,2
+Shelby,206,23,17,0
+Taylor,128,2,1,0
+Cedar,600,42,36,1
+Clinton,1093,61,45,1
+Des Moines,594,39,22,1
+Henry,501,46,37,1
+Iowa,481,29,23,0
+Jackson,373,8,7,0
+Jefferson,248,12,7,0
+Johnson,5539,574,284,7
+Keokuk,238,11,8,0
+Lee,422,19,16,0
+Louisa,938,310,195,3
+Muscatine,2583,532,314,33
+Scott,4478,309,261,8
 Van Buren,116,8,8,0
-Wapello County,1350,396,34,2
-Washington County,1061,172,130,8
-Allamakee County,667,114,81,4
-Benton County,671,36,29,1
-Black Hawk County,7074,1603,878,30
-Bremer County,558,64,51,5
-Buchanan County,510,26,21,0
-Clayton County,449,30,21,3
-Delaware County,402,12,10,0
-Dubuque County,3747,276,127,10
-Fayette County,581,25,21,0
-Grundy County,337,17,12,0
-Howard County,258,12,10,0
-Jones County,517,36,25,0
-Linn County,6658,899,658,70
-Winneshiek County,559,20,17,0
+Wapello,1350,396,34,2
+Washington,1061,172,130,8
+Allamakee,667,114,81,4
+Benton,671,36,29,1
+Black Hawk,7074,1603,878,30
+Bremer,558,64,51,5
+Buchanan,510,26,21,0
+Clayton,449,30,21,3
+Delaware,402,12,10,0
+Dubuque,3747,276,127,10
+Fayette,581,25,21,0
+Grundy,337,17,12,0
+Howard,258,12,10,0
+Jones,517,36,25,0
+Linn,6658,899,658,70
+Winneshiek,559,20,17,0
 Pending Investigation,152,9,1,0
