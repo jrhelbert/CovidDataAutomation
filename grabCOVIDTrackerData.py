@@ -120,6 +120,7 @@ def convertDataToCSV():
       data = dateData[date]
       for county in data:
         name = county
+        name = name.strip(' County')
         if name == 'Obrien':
           name = 'O\'Brien'
         rows.append( {"EventResidentCounty" : name,
