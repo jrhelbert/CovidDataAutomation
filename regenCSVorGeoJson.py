@@ -47,13 +47,16 @@ def genGeoJson():
 
   list_of_files = glob.glob(os.path.join('historical', '*.csv'))
   for csv_file in list_of_files:
+    print(csv_file)
     hospitalData = None
-    dateRegex = r"historical\\Summary(2020\-\d\d\-\d\d)\ \d\d\d\d\.csv"
+    dateRegex = r"historical\/Summary(2020\-\d\d\-\d\d)*"
     result = re.match(dateRegex, csv_file)
+    if result:
+      print(result.group(1))
     
-    list_of_pdfs = glob.glob(os.path.join('historical', 'countyHospital{} *.pdf').format(result.group(1)))
-    if len(list_of_pdfs):
-      hospitalData = stripData.readPDF(list_of_pdfs[0])
+      list_of_pdfs = glob.glob(os.path.join('historical', 'countyHospital{} *.pdf').format(result.group(1)))
+      if len(list_of_pdfs):
+        hospitalData = stripData.readPDF(list_of_pdfs[0])
     stripData.createGeoJson(csv_file, hospitalData)
 
 

@@ -102,10 +102,15 @@ def convertDataToCSV():
         dateData[date] = {}
       if county not in dateData[date]:
         dateData[date][county] = {}
-      dateData[date][county]["Individuals Tested"] = tested[i]
-      dateData[date][county]["Individuals Positive"] = confirmed[i]
-      dateData[date][county]["Total Recovered"] = recovered[i]
-      dateData[date][county]["Total Deaths"] = deaths[i]
+
+      if "Individuals Tested" not in dateData[date][county]:
+        dateData[date][county]["Individuals Tested"] = tested[i]
+      if "Individuals Positive" not in dateData[date][county]:
+        dateData[date][county]["Individuals Positive"] = confirmed[i]
+      if "Total Recovered" not in dateData[date][county]:
+        dateData[date][county]["Total Recovered"] = recovered[i]
+      if "Total Deaths" not in dateData[date][county]:
+        dateData[date][county]["Total Deaths"] = deaths[i]
 
   csvHeaders = ["EventResidentCounty","Individuals Tested","Individuals Positive","Total Recovered","Total Deaths"]
   for date in dateData:
