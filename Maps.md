@@ -1,1 +1,0 @@
-## [Maps](https://2edcovid.github.io/IowaCovidDataMap/)
