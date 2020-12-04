@@ -81,7 +81,7 @@ def prepRedditPost(sh):
   newDeaths = wks.get_value('F2')
 
   wks = sh[0]
-  currentHospitalized = wks.get_value('H2')
+  currentHospitalized = wks.get_value('J2')
   redditPostTitle = "{} as of 11:00am: {} New Cases, {} New Deaths, {} Currently Hospitalized.".format(time.strftime('%a. %m/%d'), newCases, newDeaths, currentHospitalized)
   print(redditPostTitle)
   with open(fileNames.redditTitle, 'w') as f:
@@ -95,8 +95,8 @@ if __name__ == "__main__":
   gc = pygsheets.authorize(service_file=filePath)
   sh = gc.open('Covid19')
 
-  if postTime.shouldPost():
-    data = readData()
-    postData(sh, data)
+  # if postTime.shouldPost():
+  #   data = readData()
+  #   postData(sh, data)
 
   prepRedditPost(sh)
