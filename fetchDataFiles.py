@@ -37,6 +37,7 @@ def getHospitalData():
 
 
 def getSummary():
+    print('loading Summary Page')
     browser = getBrowser(urls.summaryPage, height=1700, zoom=90)
     time.sleep(20)
     saveScreenshot(browser, fileNames.summaryScreenshot)
@@ -85,7 +86,7 @@ def getOriginalMap():
 
 
 def getCases():
-  browser = getBrowser(urls.casePage, height=5000, zoom=90)
+  browser = getBrowser(urls.casePage, height=6200, zoom=90)
   time.sleep(20)
   saveScreenshot(browser, fileNames.caseScreenshot)
   closeBrowser(browser)

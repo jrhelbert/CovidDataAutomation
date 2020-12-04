@@ -31,8 +31,8 @@ def postData(sh, data):
   wks = sh[0]
   values = []
 
-  fields = wks.get_values('B1', 'AI1')[0]
-  origVals = wks.get_values('B2', 'AI2')[0]
+  fields = wks.get_values('B1', 'AR1')[0]
+  origVals = wks.get_values('B2', 'AR2')[0]
   for i in range(len(fields)):
     if not origVals[i]:
       print('inserting data in {}'.format(fields[i]))
