@@ -120,6 +120,16 @@ def sanitizeText(text):
   return realList
 
 
+def convertVals(vals):
+  newVals = []
+  for val in vals:
+    newVal = val
+    if 'K' in val:
+      newVal = int(float(val[:-1])*1000)
+    newVals.append(newVal)
+  return newVals
+
+
 def writeJson(filePath, data):
   if os.path.exists(filePath):
     os.remove(filePath)
@@ -169,6 +179,8 @@ def getRMCCData(local):
     if 'Compared to' not in text:
       vals.append(text)
 
+  vals = convertVals(vals)
+
   vents = vals[11]
   if vents == 7715:
     vents = 775
@@ -176,7 +188,7 @@ def getRMCCData(local):
     'Currently Hospitalized' : vals[1],
     'In ICU' : vals[3],
     'Newly Admitted' : vals[5],
-    'Beds Available' : int(float(vals[7][:-1])*1000),
+    'Beds Available' : vals[7],
     'ICU Beds Available' : vals[9],
     'Vents Available': vents,
     'On Vent': vals[13],
@@ -219,12 +231,12 @@ def getSerologyData(local):
   if local:
     cv2.imwrite('Serology_totals.png', crop_img)
 
-  vals = textList[1].split()
+  vals = convertVals(textList[1].split())
 
   data = {
-    'Total Serologic Tests' : vals[0],
-    'Total Serologic Negatives' : vals[1],
-    'Total Serologic Positives' : vals[2],
+    'Individual Serologic Tests' : vals[0],
+    'Individual Serologic Negatives' : vals[1],
+    'Individual Serologic Positives' : vals[2],
   }
 
   return data
@@ -234,54 +246,120 @@ def getCaseData(local):
   print('Case Data')
   fileName = fileNames.caseScreenshot
   img = cv2.imread(fileName)
+  crop_img = img[100:-80, 100:-100]
+
   textList = []
-  crop_img = img[500:-10, 100:-100]
-
-  pcrImg = crop_img[0:-4200, 10:-400]
+  pcrImg = crop_img[100:420, 10:-10]
   text = pytesseract.image_to_string(pcrImg)
-  textList.extend(sanitizeText(text))
+  totalPCR = crop_img[100:420, 10:500]
+  text = pytesseract.image_to_string(totalPCR)
+  sanitizedText = sanitizeText(text)
+  textList.append(sanitizedText[1])
+  textList.append(sanitizedText[3])
+  positivePCR = crop_img[100:420, 600:1100]
+  text = pytesseract.image_to_string(positivePCR)
+  sanitizedText = sanitizeText(text)
+  textList.append(sanitizedText[1])
+  textList.append(sanitizedText[3])
+  negativePCR = crop_img[100:420, 1200:1700]
+  text = pytesseract.image_to_string(negativePCR)
+  sanitizedText = sanitizeText(text)
+  textList.append(sanitizedText[1])
+  textList.append(sanitizedText[3])
 
-  antigenImg = crop_img[350:-3850, 10:-400]
+  pcrText = []
+  for text in textList:
+    pcrText.append(text.replace(' ', ''))
+  pcrText = convertVals(pcrText)
+  print(pcrText)
+  
+  textList = []
+  antigenImg = crop_img[550:900, 10:-10]
   text = pytesseract.image_to_string(antigenImg)
-  textList.extend(sanitizeText(text))
+  totalAntigen = crop_img[550:900, 10:500]
+  text = pytesseract.image_to_string(totalAntigen)
+  sanitizedText = sanitizeText(text)
+  textList.append(sanitizedText[1])
+  textList.append(sanitizedText[3])
+  positiveAntigen = crop_img[550:900, 600:1100]
+  text = pytesseract.image_to_string(positiveAntigen)
+  sanitizedText = sanitizeText(text)
+  textList.append(sanitizedText[1])
+  textList.append(sanitizedText[3])
+  negativeAntigen = crop_img[550:900, 1200:1700]
+  text = pytesseract.image_to_string(negativeAntigen)
+  sanitizedText = sanitizeText(text)
+  textList.append(sanitizedText[1])
+  textList.append(sanitizedText[3])
 
-  totalsImg = crop_img[650:-3550, 10:-400]
+  antigenText = []
+  for text in textList:
+    antigenText.append(text.replace(' ', ''))
+  antigenText = convertVals(antigenText)
+  print(antigenText)
+
+  totalsText = []
+  textList = []
+  totalsImg = crop_img[1000:1150, 10:-500]
   text = pytesseract.image_to_string(totalsImg)
   textList.extend(sanitizeText(text))
+  totalsText.extend(textList[1].split())
+  totalsText = convertVals(totalsText)
+  print(totalsText)
 
-  breakDownImg = crop_img[3850:-350, 10:-10]
+  individualsText = []
+  textList = []
+  individualsImg = crop_img[1450:1600, 10:-500]
+  text = pytesseract.image_to_string(individualsImg)
+  textList.extend(sanitizeText(text))
+  individualsText.extend(textList[1].split())
+  individualsText = convertVals(individualsText)
+  print(individualsText)
+
+  breakDownText = []
+  textList = []
+  breakDownImg = crop_img[-200:-10, 10:-10]
   text = pytesseract.image_to_string(breakDownImg)
   textList.extend(sanitizeText(text))
+  breakDownText.extend(textList[1].split())
+  breakDownText = convertVals(breakDownText)
+  print(breakDownText)
 
-  print(textList)
 
   if local:
     cv2.imwrite('Cases_pcr.png', pcrImg)
     cv2.imwrite('Cases_antigen.png', antigenImg)
     cv2.imwrite('Cases_totals.png', totalsImg)
+    cv2.imwrite('Cases_individuals.png', individualsImg)
     cv2.imwrite('Cases_breakdown.png', breakDownImg)
 
-  vals = textList[1].split()
-  vals.extend(textList[3].split())
-  vals.extend(textList[5].split())
-  vals.extend(textList[7].split())
 
   data = {
-    'PCR Tests' : vals[0],
-    'PCR Negatives' : vals[1],
-    'PCR Positives' : vals[2],
-    'Antigen Tests' : vals[3],
-    'Antigen Negatives' : vals[4],
-    'Antigen Positives' : vals[5],
-    'Total Tested' : vals[6],
-    'Total Negative' : vals[7],
-    'Total Cases' : vals[8],
-    'Cases With Preexisting Condition' : vals[9],
-    'Cases With No Preexisting Condition' : vals[10],
-    'Cases Preexisting Condition Unknown' : vals[11],
+    'Total PCR Tests' : pcrText[0],
+    'Individual PCR Tests' : pcrText[1],
+    'Total PCR Negatives' : pcrText[2],
+    'Individual PCR Negatives' : pcrText[3],
+    'Total PCR Positives' : pcrText[4],    
+    'Individual PCR Positives' : pcrText[5],
+    'Total Antigen Tests' : antigenText[0],
+    'Individual Antigen Tests' : antigenText[1],
+    'Total Antigen Negatives' : antigenText[2],
+    'Individual Antigen Negatives' : antigenText[3],
+    'Total Antigen Positives' : antigenText[4],
+    'Individual Antigen Positives' : antigenText[5],
+    'Total Tests' : totalsText[0],
+    'Total Negative' : totalsText[1],
+    'Total Positive' : totalsText[2],
+    'Total Individual Tests' : individualsText[0],
+    'Total Individuals Negative' : individualsText[1],
+    'Total Individuals Positive' : individualsText[2],
+    'Cases With Preexisting Condition' : breakDownText[0],
+    'Cases With No Preexisting Condition' : breakDownText[1],
+    'Cases Preexisting Condition Unknown' : breakDownText[2],
   }
 
   return data
+
 
 def getDeathData(local):
   print('Death Data')
@@ -295,7 +373,7 @@ def getDeathData(local):
   if local:
     cv2.imwrite('Deaths_totals.png', crop_img)
 
-  vals = textList[1].split()
+  vals = convertVals(textList[1].split())
 
   data = {
     'Deaths With Preexisting Condition' : vals[0],
@@ -318,7 +396,7 @@ def getRecoveryData(local):
   if local:
     cv2.imwrite('Recovery_totals.png', crop_img)
 
-  vals = textList[1].split()
+  vals = convertVals(textList[1].split())
 
   data = {
     'Recovered With Preexisting Condition' : vals[0],
@@ -341,7 +419,7 @@ def getLTCData(local):
   if local:
     cv2.imwrite('LTC_totals.png', crop_img)
 
-  vals = textList[1].split()
+  vals = convertVals(textList[1].split())
 
   data = {
     'Current LTC Outbreaks' : vals[0],
