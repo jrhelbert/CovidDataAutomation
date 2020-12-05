@@ -95,8 +95,8 @@ if __name__ == "__main__":
   gc = pygsheets.authorize(service_file=filePath)
   sh = gc.open('Covid19')
 
-  # if postTime.shouldPost():
-  #   data = readData()
-  #   postData(sh, data)
+  if postTime.shouldPost():
+    data = readData()
+    postData(sh, data)
 
   prepRedditPost(sh)
