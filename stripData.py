@@ -18,10 +18,26 @@ logging.basicConfig(level=logging.CRITICAL)
 def readPDF(pdfFile):
   from pdfreader import PDFDocument, SimplePDFViewer
   fd = open(pdfFile, "rb")
+  doc = PDFDocument(fd)
+  all_pages = [p for p in doc.pages()]
+  page_count = len(all_pages)
   viewer = SimplePDFViewer(fd)
   viewer.render()
   countyHospitalData = {}
   compiled = ""
+ 
+  for i in range(page_count):
+    pageText = "".join(viewer.canvas.strings)
+    if 'Kossuth' not in pageText:
+      try:
+        viewer.next()
+        viewer.render()
+      except:
+        print('end of doc and no county data')
+    else:
+      print('found county data')
+      break
+
   for stringData in viewer.canvas.strings:
     if not stringData.isnumeric():
       compiled = compiled + stringData
@@ -469,7 +485,8 @@ def loadAllData():
 
 def readHospitalData():
   list_of_pdfs = glob.glob(os.path.join(fileNames.storageDir, '*.pdf'))
-  pdfFile = max(list_of_pdfs, key=os.path.getctime)
+  list_of_pdfs.sort()
+  pdfFile = list_of_pdfs[-1]
 
   hospitalData = None
   try:
@@ -489,7 +506,8 @@ if __name__ == "__main__":
     hospitalData = readHospitalData()
 
     list_of_files = glob.glob(os.path.join(fileNames.storageDir, '*.csv'))
-    csvFile = max(list_of_files, key=os.path.getctime)
+    list_of_files.sort()
+    csvFile = list_of_files[-1]
 
     createGeoJson(csvFile, hospitalData)
 
